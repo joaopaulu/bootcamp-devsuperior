@@ -1,6 +1,7 @@
 package com.devsuperior.dsclient.resources;
 
 import com.devsuperior.dsclient.dto.ClientDTO;
+import com.devsuperior.dsclient.entities.Client;
 import com.devsuperior.dsclient.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,5 +45,11 @@ public class ClientResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PutMapping(value = "{id}")
+    public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody ClientDTO dto){
+        dto = service.update(id, dto);
+        return ResponseEntity.ok().body(dto);
     }
 }
