@@ -2,7 +2,8 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ReactComponent as ArrowIcon } from '../../../../core/assets/images/arrow.svg';
 import { ReactComponent as ProductImage } from '../../../../core/assets/images/product.svg';
-import './style.scss';
+import ProductPrice from '../../../../core/components/ProductPrice';
+import './styles.scss';
 
 type ParamsType = {
   productId: string;
@@ -26,6 +27,7 @@ const ProductDetails = () => {
             <h1 className="product-details-name">
               Computador Desktop - Intel Core i7
             </h1>
+            <ProductPrice price="3.799,00" />
           </div>
           <div className="col-6 product-details-card">
             <h1 className="product-description-title">Descrição do produto</h1>
