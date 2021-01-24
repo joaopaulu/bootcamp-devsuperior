@@ -40,6 +40,7 @@ public class ClientService {
         Client entity = new Client();
         entity.setName(dto.getName());
         entity.setCpf(dto.getCpf());
+        entity.setPicture(dto.getPicture());
         entity.setIncome(dto.getIncome());
         entity.setBirthDate(dto.getBirthDate());
         entity.setChildren(dto.getChildren());
@@ -53,6 +54,7 @@ public class ClientService {
             Client entity = repository.getOne(id);
             entity.setName(dto.getName());
             entity.setCpf(dto.getCpf());
+            entity.setPicture(dto.getPicture());
             entity.setIncome(dto.getIncome());
             entity.setBirthDate(dto.getBirthDate());
             entity.setChildren(dto.getChildren());
