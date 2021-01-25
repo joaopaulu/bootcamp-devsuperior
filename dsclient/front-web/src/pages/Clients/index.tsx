@@ -27,7 +27,9 @@ const Clients = () => {
         {isLoading ? (
           <ClientCardLoader />
         ) : (
-          clientsResponse?.content.map(client => <ClientCard client={client} />)
+          clientsResponse?.content.map(client => (
+            <ClientCard client={client} key={client.id} />
+          ))
         )}
       </div>
     </div>
