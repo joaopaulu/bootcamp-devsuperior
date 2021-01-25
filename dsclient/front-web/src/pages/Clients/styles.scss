@@ -1,7 +1,7 @@
 .client-container {
   margin-top: 26px;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 500px;
+  padding-right: 500px;
 }
 
 .client-title {
@@ -12,8 +12,6 @@
 
 .client-products {
   margin-top: 43px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 250px);
-  grid-gap: 33px 20px;
-  justify-content: space-between;
+  display: inline-flexbox; 
+   
 }

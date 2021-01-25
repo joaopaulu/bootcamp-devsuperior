@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { clientsResponse } from 'core/types/Client';
 import makeRequest from 'core/utils/request';
 import ClientCard from './components/ClientCard';
@@ -28,11 +27,7 @@ const Clients = () => {
         {isLoading ? (
           <ClientCardLoader />
         ) : (
-          clientsResponse?.content.map(client => (
-            <Link to={`/clients/${client.id}`} key={client.id}>
-              <ClientCard client={client} />
-            </Link>
-          ))
+          clientsResponse?.content.map(client => <ClientCard client={client} />)
         )}
       </div>
     </div>
