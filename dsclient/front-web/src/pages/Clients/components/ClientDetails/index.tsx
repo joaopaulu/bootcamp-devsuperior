@@ -8,25 +8,25 @@ import ClientInfoLoader from '../Loaders/ClientInfoLoader';
 import './styles.scss';
 
 type ParamsType = {
-  productId: string;
+  clientId: string;
 };
 
 const ClientDetails = () => {
-  const { productId } = useParams<ParamsType>();
-  const [product, setClient] = useState<Client>();
+  const { clientId } = useParams<ParamsType>();
+  const [client, setClient] = useState<Client>();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
-    makeRequest({ url: `/products/${productId}` })
+    makeRequest({ url: `/clients/${clientId}` })
       .then(response => setClient(response.data))
       .finally(() => setIsLoading(false));
-  }, [productId]);
+  }, [clientId]);
 
   return (
-    <div className="product-details-container">
-      <div className="card-base border-radius-20 product-details">
-        <Link to="/products" className="product-details-goback">
+    <div className="client-details-container">
+      <div className="card-base border-radius-20 client-details">
+        <Link to="/clients" className="client-details-goback">
           <ArrowIcon className="icon-goback" />
           <h1 className="text-goback">voltar</h1>
         </Link>
@@ -36,29 +36,27 @@ const ClientDetails = () => {
               <ClientInfoLoader />
             ) : (
               <>
-                <div className="product-details-card text-center">
+                <div className="client-details-card text-center">
                   <img
-                    className="product-details-image"
-                    src={product?.imgUrl}
-                    alt={product?.name}
+                    className="client-details-image"
+                    src={client?.picture}
+                    alt={client?.name}
                   />
                 </div>
               </>
             )}
 
-            <h1 className="product-details-name">{product?.name}</h1>
+            <h1 className="client-details-name">{client?.name}</h1>
           </div>
-          <div className="col-6 product-details-card">
+          <div className="col-6 client-details-card">
             {isLoading ? (
               <ClientDescriptionLoader />
             ) : (
               <>
-                <h1 className="product-description-title">
+                <h1 className="client-description-title">
                   Descrição do produto
                 </h1>
-                <p className="product-description-text">
-                  {product?.description}
-                </p>
+                <p className="client-description-text">{client?.cpf}</p>
               </>
             )}
           </div>

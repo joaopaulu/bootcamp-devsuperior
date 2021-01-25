@@ -16,7 +16,7 @@ const Home = () => {
           nisl vel pretium lectus quam id leo in vitae. Dictum sit amet justo
           donec enim diam vulputate.
         </p>
-        <Link to="/products">
+        <Link to="/clients">
           <ButtonIcon text="inicie agora a sua busca" />
         </Link>
       </div>

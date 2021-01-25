@@ -22,15 +22,15 @@ const Clients = () => {
   }, []);
 
   return (
-    <div className="catalog-container">
-      <h1 className="catalog-title">Catálogo de produtos</h1>
-      <div className="catalog-products">
+    <div className="client-container">
+      <h1 className="client-title">Nossos Clientes</h1>
+      <div className="client-products">
         {isLoading ? (
           <ClientCardLoader />
         ) : (
-          clientsResponse?.content.map(product => (
-            <Link to={`/products/${product.id}`} key={product.id}>
-              <ClientCard client={product} />
+          clientsResponse?.content.map(client => (
+            <Link to={`/clients/${client.id}`} key={client.id}>
+              <ClientCard client={client} />
             </Link>
           ))
         )}

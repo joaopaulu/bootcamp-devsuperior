@@ -6,8 +6,9 @@ export type clientsResponse = {
 export type Client = {
   id: number;
   name: string;
-  description: string;
-  price: number;
-  imgUrl: string;
-  date: string;
+  cpf: string;
+  picture: string;
+  income: number;
+  birthDate: string;
+  children: number;
 };
