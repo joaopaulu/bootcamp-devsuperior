@@ -5,6 +5,7 @@ import { UserGithub } from 'core/types/UserGithub';
 import makeRequest from 'core/utils/request';
 import ImageLoader from 'pages/Search/components/Loaders/ImageLoader';
 import InfoLoader from 'pages/Search/components/Loaders/InfoLoader';
+import DayJS from 'react-dayjs';
 
 type Props = {
   gitUsername: string;
@@ -28,7 +29,7 @@ const GitCard = ({ gitUsername }: Props) => {
       ) : (
         <div className="col-2 github-foto-container">
           <img src={user?.avatar_url} alt="Github Foto" />
-          <a href={user?.html_url}>
+          <a href={user?.html_url} target="_blank" rel="noreferrer">
             <Button text="Ver Perfil" />
           </a>
         </div>
@@ -57,7 +58,8 @@ const GitCard = ({ gitUsername }: Props) => {
                 <span>Localidade:</span> {user?.location}
               </div>
               <div className="info-member-details">
-                <span>Membro desde:</span> {user?.created_at}
+                <span>Membro desde: </span>
+                <DayJS format="DD/MM/YYYY">{user?.created_at}</DayJS>
               </div>
             </div>
           </div>
