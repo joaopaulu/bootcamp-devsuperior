@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Button from 'core/components/Button';
 import GitCard from 'core/components/GitCard';
-import makeRequest from 'core/utils/request';
-import { UserGithub } from 'core/types/UserGithub';
 
 import './styles.scss';
 
@@ -14,7 +12,6 @@ const Search = () => {
   const [formData, setFormData] = useState<FormState>({
     search: '',
   });
-  const [userResponse, setUserResponse] = useState<UserGithub>();
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name;
@@ -24,15 +21,7 @@ const Search = () => {
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const payload = {
-      ...formData,
-    };
-
-    makeRequest({ url: `/${payload}`, method: 'GET' }).then(response =>
-      setUserResponse(response.data),
-    );
-
-    console.log(payload);
+    console.log(formData.search);
   };
 
   return (
@@ -54,6 +43,7 @@ const Search = () => {
           </form>
         </div>
       </div>
+      {formData.search && <GitCard gitUsername={formData.search} />}
     </>
   );
 };

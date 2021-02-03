@@ -11,4 +11,5 @@ export type UserGithub = {
   public_repos: number;
   followers: number;
   following: number;
+  html_url: string;
 };
