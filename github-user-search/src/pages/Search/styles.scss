@@ -33,10 +33,24 @@
   border: 1px solid #D9D9D9;
   box-sizing: border-box;
   border-radius: 4px;  
-  margin-bottom: 32px;
+  margin-bottom: 20px;
   padding: 8px 27px 8px 17px;
 
 }
 .form-search input::placeholder{
 color: #BFBFBF;
+}
+
+.input-erro-container{
+  margin-bottom: 10px;
+ 
+}
+.input-erro{
+  border-color:#c53030!important;
+}
+
+.input-erro-text{
+  color:#c53030;
+  font-family: Roboto;
+  font-weight: bold;
 }

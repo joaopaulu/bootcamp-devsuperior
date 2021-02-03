@@ -1,27 +1,19 @@
 import React, { useState } from 'react';
 import Button from 'core/components/Button';
 import GitCard from 'core/components/GitCard';
-
 import './styles.scss';
 
-type FormState = {
-  search: string;
-};
-
 const Search = () => {
-  const [formData, setFormData] = useState<FormState>({
-    search: '',
-  });
-
-  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setFormData(data => ({ ...data, [name]: value }));
-  };
+  const [newUser, setNewUser] = useState('');
+  const [inputError, setInputError] = useState('');
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formData.search);
+    if (!newUser) {
+      setInputError('Digite o usuário do Github');
+      return;
+    }
+    setInputError('');
   };
 
   return (
@@ -30,20 +22,28 @@ const Search = () => {
         <div className="form-search">
           <form onSubmit={handleSubmit}>
             <label htmlFor="search">Encontre um perfil no Github</label>
+
             <input
-              value={formData.search}
+              value={newUser}
+              onChange={e => setNewUser(e.target.value)}
               type="text"
               name="search"
               id="search"
-              onChange={handleOnChange}
-              className="form-control"
+              className={`form-control ${inputError && 'input-erro'}`}
               placeholder="Usuário Github"
             />
+
+            {inputError && (
+              <div className="input-erro-container">
+                <span className="input-erro-text">{inputError}</span>
+              </div>
+            )}
+
             <Button text="Encontrar" />
           </form>
         </div>
       </div>
-      {formData.search && <GitCard gitUsername={formData.search} />}
+      {newUser && <GitCard gitUsername={newUser} />}
     </>
   );
 };
