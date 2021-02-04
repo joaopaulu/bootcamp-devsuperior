@@ -48,15 +48,21 @@ const GitCard = ({ gitUsername }: Props) => {
           <div className="flex-info-details">
             <h6>Informações</h6>
             <div className="info-member">
-              <div className="info-member-details">
-                <span>Empresa:</span> {user?.company}
-              </div>
-              <div className="info-member-details">
-                <span>Website/Blog:</span> {user?.blog}
-              </div>
-              <div className="info-member-details">
-                <span>Localidade:</span> {user?.location}
-              </div>
+              {user?.company && (
+                <div className="info-member-details">
+                  <span>Empresa:</span> {user?.company}
+                </div>
+              )}
+              {user?.blog && (
+                <div className="info-member-details">
+                  <span>Website/Blog:</span> {user?.blog}
+                </div>
+              )}
+              {user?.location && (
+                <div className="info-member-details">
+                  <span>Localidade:</span> {user?.location}
+                </div>
+              )}
               <div className="info-member-details">
                 <span>Membro desde: </span>
                 <DayJS format="DD/MM/YYYY">{user?.created_at}</DayJS>

@@ -6,11 +6,9 @@ type Props = {
 };
 
 const Button = ({ text }: Props) => (
-  <div className="d-flex">
-    <button className="btn btn-primary btn-default">
-      <span>{text}</span>
-    </button>
-  </div>
+  <button className="btn btn-primary btn-default">
+    <span>{text}</span>
+  </button>
 );
 
 export default Button;

@@ -6,14 +6,26 @@ import './styles.scss';
 const Search = () => {
   const [newUser, setNewUser] = useState('');
   const [inputError, setInputError] = useState('');
+  const [gitUser, setGitUser] = useState('');
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!newUser) {
       setInputError('Digite o usuário do Github');
       return;
+    } else {
+      setGitUser(newUser);
+      console.log(gitUser);
     }
     setInputError('');
+  };
+
+  const handleReset = (event: React.ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (newUser) {
+      setGitUser('');
+      setNewUser('');
+    }
   };
 
   return (
@@ -39,11 +51,13 @@ const Search = () => {
               </div>
             )}
 
-            <Button text="Encontrar" />
+            <div className="d-flex">
+              <Button text="Encontrar" />
+            </div>
           </form>
         </div>
       </div>
-      {newUser && <GitCard gitUsername={newUser} />}
+      {gitUser && <GitCard gitUsername={newUser} />}
     </>
   );
 };
