@@ -20,7 +20,7 @@ public class UserDTO implements Serializable {
 
     private String lastName;
 
-    @Email(message = "FAvor entrar com email válido")
+    @Email(message = "Favor entrar com email válido")
     private String email;
 
     Set<RoleDTO> roles = new HashSet<>();
