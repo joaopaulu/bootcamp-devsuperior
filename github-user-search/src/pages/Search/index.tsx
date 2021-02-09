@@ -2,30 +2,39 @@ import React, { useState } from 'react';
 import Button from 'core/components/Button';
 import GitCard from 'core/components/GitCard';
 import './styles.scss';
+import { UserGithub } from 'core/types/UserGithub';
+import makeRequest from 'core/utils/request';
 
 const Search = () => {
-  const [newUser, setNewUser] = useState('');
+  const [search, setSearch] = useState('');
   const [inputError, setInputError] = useState('');
-  const [gitUser, setGitUser] = useState('');
+  const [, setUserInfo] = useState<UserGithub>();
+  const [isSearch, setIsSearch] = useState(false);
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!newUser) {
+    if (!search) {
       setInputError('Digite o usuário do Github');
       return;
     } else {
-      setGitUser(newUser);
-      console.log(gitUser);
+      makeRequest({ url: `/${search}` })
+        .then(response => setUserInfo(response.data))
+        .catch(() => {
+          setInputError('Usuário não encontrado');
+          setIsSearch(false);
+        })
+        .finally(() => {
+          setIsSearch(true);
+        });
     }
     setInputError('');
   };
 
-  const handleReset = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (newUser) {
-      setGitUser('');
-      setNewUser('');
-    }
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLFormElement>,
+  ) => {
+    setSearch(event.target.value);
+    setIsSearch(false);
   };
 
   return (
@@ -36,8 +45,8 @@ const Search = () => {
             <label htmlFor="search">Encontre um perfil no Github</label>
 
             <input
-              value={newUser}
-              onChange={e => setNewUser(e.target.value)}
+              value={search}
+              onChange={handleChange}
               type="text"
               name="search"
               id="search"
@@ -57,7 +66,7 @@ const Search = () => {
           </form>
         </div>
       </div>
-      {gitUser && <GitCard gitUsername={newUser} />}
+      {isSearch && <GitCard gitUsername={search} />}
     </>
   );
 };
