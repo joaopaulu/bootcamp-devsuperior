@@ -1,9 +1,11 @@
 package com.devsuperior.dscatalog.services;
 
+import com.devsuperior.dscatalog.config.Mapper;
 import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.dto.ProductDTO;
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
+import com.devsuperior.dscatalog.mappers.ProductMapper;
 import com.devsuperior.dscatalog.repositories.CategoryRepository;
 import com.devsuperior.dscatalog.repositories.ProductRepository;
 import com.devsuperior.dscatalog.services.exceptions.DatabaseException;
@@ -19,9 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
@@ -34,7 +36,7 @@ public class ProductService implements IProductService {
 
     @Transactional(readOnly = true)
     public Page<ProductDTO> findAllPaged(Long categoryId, String name, PageRequest pageRequest) {
-        List<Category> categories = (categoryId == 0) ? null : Arrays.asList(categoryRepository.getOne(categoryId));
+        List<Category> categories = (categoryId == 0) ? null : Collections.singletonList(categoryRepository.getOne(categoryId));
         Page<Product> list = repository.find(categories, name, pageRequest);
         return list.map(ProductDTO::new);
     }
@@ -51,7 +53,7 @@ public class ProductService implements IProductService {
         Product entity = new Product();
         copyDtoEntity(dto, entity);
         entity = repository.save(entity);
-        return new ProductDTO(entity);
+        return Mapper.factory(ProductMapper.class).entityToDto(entity);
     }
 
     @Transactional
