@@ -8,6 +8,7 @@ import com.devsuperior.dscatalog.repositories.CategoryRepository;
 import com.devsuperior.dscatalog.repositories.ProductRepository;
 import com.devsuperior.dscatalog.services.exceptions.DatabaseException;
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
+import com.devsuperior.dscatalog.services.iface.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -23,7 +24,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductService {
+public class ProductService implements IProductService {
 
     @Autowired
     private ProductRepository repository;

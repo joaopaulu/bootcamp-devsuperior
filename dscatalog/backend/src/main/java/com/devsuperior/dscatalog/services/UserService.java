@@ -10,6 +10,7 @@ import com.devsuperior.dscatalog.repositories.RoleRepository;
 import com.devsuperior.dscatalog.repositories.UserRepository;
 import com.devsuperior.dscatalog.services.exceptions.DatabaseException;
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
+import com.devsuperior.dscatalog.services.iface.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService implements IUserService, UserDetailsService {
 
     private static Logger logger = LoggerFactory.getLogger(UserService.class);
 

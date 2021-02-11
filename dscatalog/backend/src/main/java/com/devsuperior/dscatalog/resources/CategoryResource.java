@@ -2,6 +2,7 @@ package com.devsuperior.dscatalog.resources;
 
 import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.services.CategoryService;
+import com.devsuperior.dscatalog.services.iface.ICategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import java.util.List;
 public class CategoryResource {
 
     @Autowired
-    private CategoryService service;
+    private ICategoryService service;
 
     @GetMapping
     @ApiOperation("Busca todos as categorias")
