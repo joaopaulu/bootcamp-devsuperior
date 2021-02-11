@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -29,9 +30,10 @@ public class ProductService {
     private CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAllPaged(PageRequest pageRequest){
-        Page<Product> list = repository.findAll(pageRequest);
-        return list.map(ProductDTO::new);
+    public Page<ProductDTO> find(PageRequest pageRequest) {
+        Page<Product> page = repository.findAll(pageRequest);
+        repository.findProductsCategories(page.stream().collect(Collectors.toList()));
+        return page.map(ProductDTO::new);
     }
 
     @Transactional(readOnly = true)

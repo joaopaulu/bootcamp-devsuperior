@@ -12,6 +12,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ProductDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -38,22 +39,24 @@ public class ProductDTO implements Serializable {
 
     }
 
-    public ProductDTO(Long id, String name, String description, Double price, String imgUrl, Instant date) {
+    public ProductDTO(Long id, String name, String description, Double price, String imgUrl, Instant date, List<CategoryDTO> categories) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.imgUrl = imgUrl;
         this.date = date;
+        this.categories = categories;
     }
 
-    public ProductDTO(Product entity) {
-        this.id = entity.getId();
-        this.name = entity.getName();
-        this.description = entity.getDescription();
-        this.price = entity.getPrice();
-        this.imgUrl = entity.getImgUrl();
-        this.date = entity.getDate();
+    public ProductDTO(Product product) {
+        id = product.getId();
+        name = product.getName();
+        description = product.getDescription();
+        price = product.getPrice();
+        imgUrl = product.getImgUrl();
+        date = product.getDate();
+        categories = product.getCategories().stream().map(CategoryDTO::new).collect(Collectors.toList());
     }
 
     public ProductDTO(Product entity, Set<Category> categories){

@@ -29,7 +29,7 @@ public class ProductResource {
 
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
 
-        Page<ProductDTO> list = service.findAllPaged(pageRequest);
+        Page<ProductDTO> list = service.find(pageRequest);
         return ResponseEntity.ok().body(list);
     }
 
