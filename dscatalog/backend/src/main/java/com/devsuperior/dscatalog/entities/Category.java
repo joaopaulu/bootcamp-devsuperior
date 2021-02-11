@@ -1,10 +1,12 @@
 package com.devsuperior.dscatalog.entities;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,31 +20,23 @@ public class Category implements Serializable {
     private Long id;
     private String name;
 
+    @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant createdAt;
+    private LocalDateTime createdAt;
 
+    @UpdateTimestamp
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant updatedAt;
+    private LocalDateTime updatedAt;
 
     @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
 
-    public Instant getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public Instant getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
-    }
-
-    @PrePersist
-    public void prePersist(){
-        createdAt = Instant.now();
-    }
-
-    @PreUpdate
-    public void preUpdate(){
-        updatedAt = Instant.now();
     }
 
     public Long getId() {

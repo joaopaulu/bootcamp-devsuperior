@@ -1,8 +1,11 @@
 package com.devsuperior.dscatalog.entities;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +25,7 @@ public class Product implements Serializable {
     private String imgUrl;
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant date;
+    private LocalDateTime date;
 
     @ManyToMany
     @JoinTable(name="tb_product_category",
@@ -34,7 +37,7 @@ public class Product implements Serializable {
 
     }
 
-    public Product(Long id, String name, String description, Double price, String imgUrl, Instant date) {
+    public Product(Long id, String name, String description, Double price, String imgUrl, LocalDateTime date) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -87,11 +90,11 @@ public class Product implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    public Instant getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Instant date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

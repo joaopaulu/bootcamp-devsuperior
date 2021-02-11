@@ -2,13 +2,15 @@ package com.devsuperior.dscatalog.dto;
 
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
+import org.apache.tomcat.jni.Local;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -31,7 +33,7 @@ public class ProductDTO implements Serializable {
     private String imgUrl;
 
     @PastOrPresent(message = "A data do produto não pode ser futura")
-    private Instant date;
+    private LocalDateTime date;
 
     private List<CategoryDTO> categories = new ArrayList<>();
 
@@ -39,7 +41,7 @@ public class ProductDTO implements Serializable {
 
     }
 
-    public ProductDTO(Long id, String name, String description, Double price, String imgUrl, Instant date, List<CategoryDTO> categories) {
+    public ProductDTO(Long id, String name, String description, Double price, String imgUrl, LocalDateTime date, List<CategoryDTO> categories) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -104,11 +106,15 @@ public class ProductDTO implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    public Instant getDate() {
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Instant date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
