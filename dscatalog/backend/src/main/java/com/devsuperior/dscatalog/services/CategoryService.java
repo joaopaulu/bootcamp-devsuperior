@@ -1,7 +1,9 @@
 package com.devsuperior.dscatalog.services;
 
+import com.devsuperior.dscatalog.config.Mapper;
 import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.entities.Category;
+import com.devsuperior.dscatalog.mappers.CategoryMapper;
 import com.devsuperior.dscatalog.repositories.CategoryRepository;
 import com.devsuperior.dscatalog.services.exceptions.DatabaseException;
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
@@ -35,7 +37,7 @@ public class CategoryService implements ICategoryService {
     public CategoryDTO findById(Long id) {
         Optional<Category> obj = repository.findById(id);
         Category entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
-        return new CategoryDTO(entity);
+        return Mapper.factory(CategoryMapper.class).entityToDto(entity);
     }
 
     @Override
@@ -44,7 +46,7 @@ public class CategoryService implements ICategoryService {
         Category entity = new Category();
         entity.setName(dto.getName());
         entity = repository.save(entity);
-        return new CategoryDTO(entity);
+        return Mapper.factory(CategoryMapper.class).entityToDto(entity);
     }
 
     @Override
@@ -54,7 +56,7 @@ public class CategoryService implements ICategoryService {
             Category entity = repository.getOne(id);
             entity.setName(dto.getName());
             entity = repository.save(entity);
-            return new CategoryDTO(entity);
+            return Mapper.factory(CategoryMapper.class).entityToDto(entity);
         }catch (EntityNotFoundException e){
             throw new ResourceNotFoundException("Id not found " + id);
         }
