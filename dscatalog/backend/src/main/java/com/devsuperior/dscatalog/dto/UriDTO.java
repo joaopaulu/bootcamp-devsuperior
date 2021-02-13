@@ -10,6 +10,7 @@ public class UriDTO implements Serializable {
     public UriDTO(){
 
     }
+
     public UriDTO(String uri){
         this.uri = uri;
     }

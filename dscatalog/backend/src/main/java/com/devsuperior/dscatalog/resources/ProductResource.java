@@ -64,6 +64,7 @@ public class ProductResource {
     @ApiOperation("Cadastra um produto")
     public ResponseEntity<UriDTO> uploadImage(@RequestParam("file") MultipartFile file){
         UriDTO dto = service.uploadFile(file);
+        //UriDTO dto = service.uploadFileTeste(file);
         return ResponseEntity.ok().body(dto);
     }
 

@@ -12,7 +12,9 @@ import com.devsuperior.dscatalog.repositories.ProductRepository;
 import com.devsuperior.dscatalog.services.exceptions.DatabaseException;
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
 import com.devsuperior.dscatalog.services.iface.IProductService;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -22,6 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
@@ -38,6 +43,9 @@ public class ProductService implements IProductService {
 
     @Autowired
     private S3Service s3Service;
+
+    @Value("${repositorio}")
+    private String uri;
 
     @Transactional(readOnly = true)
     public Page<ProductDTO> findAllPaged(Long categoryId, String name, PageRequest pageRequest) {
@@ -100,5 +108,20 @@ public class ProductService implements IProductService {
     public UriDTO uploadFile(MultipartFile file){
         URL url = s3Service.uploadFile(file);
         return new UriDTO(url.toString());
+    }
+
+    public UriDTO uploadFileTeste(MultipartFile file){
+        String originalName = file.getOriginalFilename();
+        String diretorio = uri + originalName;
+        try {
+            FileOutputStream fos = new FileOutputStream(diretorio);
+            fos.write(file.getBytes());
+            fos.close();
+        } catch (IOException io) {
+            io.getStackTrace();
+        }
+
+        return new UriDTO(diretorio);
+
     }
 }

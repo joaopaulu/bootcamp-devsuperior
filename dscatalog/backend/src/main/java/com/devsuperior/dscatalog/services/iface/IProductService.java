@@ -18,5 +18,7 @@ public interface IProductService {
 
     UriDTO uploadFile(MultipartFile file);
 
+    UriDTO uploadFileTeste(MultipartFile file);
+
     void delete(Long id);
 }
