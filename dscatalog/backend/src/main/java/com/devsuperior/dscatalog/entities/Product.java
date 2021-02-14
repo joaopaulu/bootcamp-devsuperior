@@ -1,10 +1,7 @@
 package com.devsuperior.dscatalog.entities;
 
-import org.apache.tomcat.jni.Local;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
