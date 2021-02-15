@@ -2,6 +2,7 @@ package com.devsuperior.workshopmongo.config;
 
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Collections;
 
 import javax.annotation.PostConstruct;
 
@@ -46,7 +47,7 @@ public class TestConfig {
 		Comment c3 = new Comment("Tenha um ótimo dia!", Instant.parse("2021-02-14T12:34:26Z"), new Author(alex));
 
 		post1.getComments().addAll(Arrays.asList(c1, c2));
-		post2.getComments().addAll(Arrays.asList(c3));
+		post2.getComments().addAll(Collections.singletonList(c3));
 
 		postRepository.saveAll(Arrays.asList(post1, post2));
 
