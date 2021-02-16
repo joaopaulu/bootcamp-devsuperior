@@ -2,11 +2,10 @@ package com.devsuperior.dslearn.entities;
 
 import com.devsuperior.dslearn.entities.pk.EnrollmentPK;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="tb_enrollment")
@@ -22,6 +21,9 @@ public class Enrollment {
     private LocalDate refundMoment;
     private boolean available;
     private boolean onlyUpdate;
+
+    @ManyToMany(mappedBy = "enrollmentsDone")
+    private Set<Lesson> lessonDone = new HashSet<>();
 
     public Enrollment(){}
 
