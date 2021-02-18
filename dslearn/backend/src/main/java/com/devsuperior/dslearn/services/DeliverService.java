@@ -13,6 +13,9 @@ public class DeliverService {
     @Autowired
     private DeliverRepository repository;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @Transactional
     public void saveRevision(Long id, DeliverRevisionDTO dto) {
         Deliver deliver = repository.getOne(id);
@@ -20,5 +23,6 @@ public class DeliverService {
         deliver.setFeedback(dto.getFeedback());
         deliver.setCorrectCount(dto.getCorrectCount());
         repository.save(deliver);
+        notificationService.saveDeliverNotification(deliver);
     }
 }
