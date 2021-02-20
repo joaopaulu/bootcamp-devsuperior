@@ -1,3 +1,4 @@
+import { isAllowesByRole } from 'core/utils/auth';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './styles.scss';
@@ -11,9 +12,11 @@ const Navbar = () => (
       <li>
         <NavLink to="/admin/categories">Categorias</NavLink>
       </li>
-      <li>
-        <NavLink to="/admin/users">Usuários</NavLink>
-      </li>
+      {isAllowesByRole(['ROLE_ADMIN']) && (
+        <li>
+          <NavLink to="/admin/users">Usuários</NavLink>
+        </li>
+      )}
     </ul>
   </nav>
 );
