@@ -63,6 +63,10 @@ public class ProductService implements IProductService {
     public ProductDTO insert(ProductDTO dto) {
         Product entity = new Product();
         copyDtoEntity(dto, entity);
+        if(entity.getCategories().size() == 0){
+            Category cat = categoryRepository.getOne(1L);
+            entity.getCategories().add(cat);
+        }
         entity = repository.save(entity);
         return Mapper.factory(ProductMapper.class).entityToDto(entity);
     }
