@@ -48,8 +48,9 @@ public class ProductService implements IProductService {
     @Transactional(readOnly = true)
     public Page<ProductDTO> findAllPaged(Long categoryId, String name, PageRequest pageRequest) {
         List<Category> categories = (categoryId == 0) ? null : Collections.singletonList(categoryRepository.getOne(categoryId));
-        Page<Product> list = repository.find(categories, name, pageRequest);
-        return list.map(ProductDTO::new);
+        Page<Product> page = repository.find(categories, name, pageRequest);
+        repository.find(page.toList());
+        return page.map(ProductDTO::new);
     }
 
     @Transactional(readOnly = true)
