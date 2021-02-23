@@ -77,6 +77,10 @@ public class ProductService implements IProductService {
         try {
             Product entity = repository.getOne(id);
             copyDtoEntity(dto, entity);
+            if(entity.getCategories().size() == 0){
+                Category cat = categoryRepository.getOne(1L);
+                entity.getCategories().add(cat);
+            }
             entity = repository.save(entity);
             return new ProductDTO(entity);
         }catch (EntityNotFoundException e){
