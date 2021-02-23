@@ -8,6 +8,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import './styles.scss';
 import { Category } from 'core/types/Product';
 import PriceField from './PriceField';
+import ImageUpload from '../ImageUpload';
 
 export type FormState = {
   name: string;
@@ -130,18 +131,7 @@ const Form = () => {
               )}
             </div>
             <div className="input-bt30">
-              <input
-                ref={register({ required: 'Campo obrigatório' })}
-                type="text"
-                name="imgUrl"
-                className="form-control input-base"
-                placeholder="Url Imagem"
-              />
-              {errors.imgUrl && (
-                <div className="invalid-feedback d-block">
-                  {errors.imgUrl.message}
-                </div>
-              )}
+              <ImageUpload />
             </div>
           </div>
           <div className="col-6">
