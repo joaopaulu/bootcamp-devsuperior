@@ -4,8 +4,15 @@ import './styles.scss';
 import { makePrivateRequest } from 'core/utils/request';
 import { toast } from 'react-toastify';
 
-const ImageUpload = () => {
+type Props = {
+  onUploadSucess: (imgUrl: string) => void;
+  productImgUrl: string;
+};
+
+const ImageUpload = ({ onUploadSucess, productImgUrl }: Props) => {
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadedImgUrl, setUploadedImgUrl] = useState('');
+  const imgUrl = uploadedImgUrl || productImgUrl;
 
   const onUploadProgress = (progressEvent: ProgressEvent) => {
     const progess = Math.round(
@@ -24,8 +31,9 @@ const ImageUpload = () => {
       data: payload,
       onUploadProgress,
     })
-      .then(() => {
-        console.log('arquico enviado com sucesso');
+      .then(response => {
+        setUploadedImgUrl(response.data.uri);
+        onUploadSucess(response.data.uri);
       })
       .catch(() => {
         toast.error('Erro ao enviar arquivo');
@@ -58,13 +66,20 @@ const ImageUpload = () => {
         </small>
       </div>
       <div className="col-6 upload-placeholder">
-        <UploadPlaceholder />
-        <div className="upload-progess-container">
-          <div
-            className="upload-progress"
-            style={{ width: `${uploadProgress}%` }}
-          ></div>
-        </div>
+        {uploadProgress > 0 && (
+          <>
+            <UploadPlaceholder />
+            <div className="upload-progess-container">
+              <div
+                className="upload-progress"
+                style={{ width: `${uploadProgress}%` }}
+              ></div>
+            </div>
+          </>
+        )}
+        {imgUrl && uploadProgress === 0 && (
+          <img src={imgUrl} alt={imgUrl} className="uploaded-image" />
+        )}
       </div>
     </div>
   );
