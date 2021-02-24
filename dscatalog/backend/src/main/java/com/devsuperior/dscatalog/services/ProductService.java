@@ -42,7 +42,6 @@ public class ProductService implements IProductService {
     @Autowired
     private S3Service s3Service;
 
-    @Value("${repositorio}")
     private String uri;
 
     @Transactional(readOnly = true)
