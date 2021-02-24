@@ -49,3 +49,9 @@
     box-shadow: none;
   }
 }
+
+@media (max-width: 768px){
+  .product-filters-container{
+    width:100% ;
+  }
+}
