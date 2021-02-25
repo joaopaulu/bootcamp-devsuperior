@@ -7,14 +7,20 @@ const Navbar = () => (
   <nav className="admin-nav-container">
     <ul>
       <li>
-        <NavLink to="/admin/products">Produtos</NavLink>
+        <NavLink to="/admin/products" className="admin-nav-item">
+          Produtos
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/admin/categories">Categorias</NavLink>
+        <NavLink to="/admin/categories" className="admin-nav-item">
+          Categorias
+        </NavLink>
       </li>
       {isAllowesByRole(['ROLE_ADMIN']) && (
         <li>
-          <NavLink to="/admin/users">Usuários</NavLink>
+          <NavLink to="/admin/users" className="admin-nav-item">
+            Usuários
+          </NavLink>
         </li>
       )}
     </ul>
