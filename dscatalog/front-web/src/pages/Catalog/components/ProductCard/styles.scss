@@ -1,6 +1,7 @@
 .product-card{
   padding: 20px 20px 30px 20px;
   text-align: center;
+  height: 325px;
   
   .product-price-container{
     margin-top: 20px;
@@ -17,6 +18,17 @@
 }
 
 .product-name {
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: -0.015em;
+  color:#263238;
+  max-width: 25ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-name-small {  
   font-size: 18px;
   line-height: 25px;
   letter-spacing: -0.015em;

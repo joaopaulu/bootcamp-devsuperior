@@ -71,7 +71,10 @@ const Navbar = () => {
                 <a
                   href="#logout"
                   className="nav-link active d-inline"
-                  onClick={handleLogout}
+                  onClick={e => {
+                    setDrawerActive(false);
+                    handleLogout(e);
+                  }}
                 >
                   LOGOUT
                 </a>
