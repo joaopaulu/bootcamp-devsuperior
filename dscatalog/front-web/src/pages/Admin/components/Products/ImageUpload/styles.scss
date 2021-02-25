@@ -40,3 +40,29 @@
     height: 200px;
   }
 }
+
+@media (max-width: 768px){
+  .upload-button-container label{
+    word-wrap: none;
+    width: 200px;
+  }
+
+  
+  .upload-placeholder{
+    svg{
+      width: 100px;
+      height: 100px;
+      margin-top: 45px;
+    }
+    .upload-progess-container{      
+      width: 90px;  
+      bottom: 50px;
+      left: 20px;   
+    }
+    .uploaded-image{
+      width: 100px;
+      height: 100px;
+      margin-top: 45px;
+    }
+  }
+}

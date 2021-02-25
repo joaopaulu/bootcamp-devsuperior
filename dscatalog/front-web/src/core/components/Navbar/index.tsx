@@ -1,9 +1,11 @@
 import { getAccessTokenDecoded, logout } from 'core/utils/auth';
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { ReactComponent as MenuIcon } from 'core/assets/images/menu.svg';
 import './styles.scss';
 
 const Navbar = () => {
+  const [drawerActive, setDrawerActive] = useState(false);
   const [currentUser, setCurrentUser] = useState('');
   const location = useLocation();
 
@@ -23,41 +25,99 @@ const Navbar = () => {
       <Link to="/" className="nav-logo-text">
         <h4>DS Catalog</h4>
       </Link>
+      <button
+        className="menu-mobile-btn"
+        type="button"
+        onClick={() => setDrawerActive(!drawerActive)}
+      >
+        <MenuIcon />
+      </button>
 
-      <div className="menu-container">
+      <div
+        className={drawerActive ? 'menu-mobile-container' : 'menu-container'}
+      >
         <ul className="main-menu">
           <li>
-            <NavLink className="nav-link" to="/" exact>
+            <NavLink
+              to="/"
+              exact
+              className="nav-link"
+              onClick={() => setDrawerActive(false)}
+            >
               HOME
             </NavLink>
           </li>
           <li>
-            <NavLink className="nav-link" to="/products">
+            <NavLink
+              className="nav-link"
+              to="/products"
+              onClick={() => setDrawerActive(false)}
+            >
               CATÁLOGO
             </NavLink>
           </li>
           <li>
-            <NavLink className="nav-link" to="/admin">
+            <NavLink
+              className="nav-link"
+              to="/admin"
+              onClick={() => setDrawerActive(false)}
+            >
               ADMIN
             </NavLink>
           </li>
+          {drawerActive && (
+            <li>
+              {currentUser && (
+                <a
+                  href="#logout"
+                  className="nav-link active d-inline"
+                  onClick={handleLogout}
+                >
+                  LOGOUT
+                </a>
+              )}
+            </li>
+          )}
+
+          {drawerActive && (
+            <>
+              {!currentUser && (
+                <li>
+                  <Link
+                    className="nav-link active"
+                    to="/auth/login"
+                    onClick={() => setDrawerActive(false)}
+                  >
+                    LOGIN
+                  </Link>
+                </li>
+              )}
+            </>
+          )}
         </ul>
       </div>
-      <div className="text-right">
+      <div className="user-info-dnone text-right">
         {currentUser && (
           <>
             {currentUser}
             <a
               href="#logout"
               className="nav-link active d-inline"
-              onClick={handleLogout}
+              onClick={e => {
+                setDrawerActive(false);
+                handleLogout(e);
+              }}
             >
               Logout
             </a>
           </>
         )}
         {!currentUser && (
-          <Link className="nav-link active" to="/auth/login">
+          <Link
+            className="nav-link active"
+            to="/auth/login"
+            onClick={() => setDrawerActive(false)}
+          >
             Login
           </Link>
         )}
