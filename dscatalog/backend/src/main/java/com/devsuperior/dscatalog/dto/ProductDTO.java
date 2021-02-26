@@ -1,6 +1,5 @@
 package com.devsuperior.dscatalog.dto;
 
-import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
 
 import javax.validation.constraints.NotBlank;
@@ -11,7 +10,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ProductDTO implements Serializable {
@@ -57,11 +55,6 @@ public class ProductDTO implements Serializable {
         imgUrl = product.getImgUrl();
         date = product.getDate();
         categories = product.getCategories().stream().map(CategoryDTO::new).collect(Collectors.toList());
-    }
-
-    public ProductDTO(Product entity, Set<Category> categories){
-        this(entity);
-        categories.forEach(cat -> this.categories.add(new CategoryDTO(cat)));
     }
 
     public Long getId() {

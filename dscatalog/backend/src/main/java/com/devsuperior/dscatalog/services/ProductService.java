@@ -56,7 +56,7 @@ public class ProductService implements IProductService {
     public ProductDTO findById(Long id) {
         Optional<Product> obj = repository.findById(id);
         Product entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
-        return new ProductDTO(entity, entity.getCategories());
+        return new ProductDTO(entity);
     }
 
     @Transactional
