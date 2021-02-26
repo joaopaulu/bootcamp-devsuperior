@@ -1,5 +1,8 @@
 package com.devsuperior.dscatalog.entities;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,6 +24,7 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
+    @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private LocalDateTime date;
 

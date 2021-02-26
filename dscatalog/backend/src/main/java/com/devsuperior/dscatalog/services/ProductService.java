@@ -63,7 +63,7 @@ public class ProductService implements IProductService {
     public ProductDTO insert(ProductDTO dto) {
         Product entity = new Product();
         copyDtoEntity(dto, entity);
-        if(entity.getCategories().size() == 0){
+        if (entity.getCategories().size() == 0) {
             Category cat = categoryRepository.getOne(1L);
             entity.getCategories().add(cat);
         }
@@ -76,13 +76,13 @@ public class ProductService implements IProductService {
         try {
             Product entity = repository.getOne(id);
             copyDtoEntity(dto, entity);
-            if(entity.getCategories().size() == 0){
+            if (entity.getCategories().size() == 0) {
                 Category cat = categoryRepository.getOne(1L);
                 entity.getCategories().add(cat);
             }
             entity = repository.save(entity);
             return new ProductDTO(entity);
-        }catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found " + id);
         }
     }
@@ -90,9 +90,9 @@ public class ProductService implements IProductService {
     public void delete(Long id) {
         try {
             repository.deleteById(id);
-        }catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException("Id not found " + id);
-        }catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Intedrity violation");
         }
     }
@@ -105,18 +105,18 @@ public class ProductService implements IProductService {
         entity.setPrice(dto.getPrice());
 
         entity.getCategories().clear();
-        for (CategoryDTO catDto : dto.getCategories()){
+        for (CategoryDTO catDto : dto.getCategories()) {
             Category category = categoryRepository.getOne(catDto.getId());
             entity.getCategories().add(category);
         }
     }
 
-    public UriDTO uploadFile(MultipartFile file){
+    public UriDTO uploadFile(MultipartFile file) {
         URL url = s3Service.uploadFile(file);
         return new UriDTO(url.toString());
     }
 
-    public UriDTO uploadFileTeste(MultipartFile file){
+    public UriDTO uploadFileTeste(MultipartFile file) {
         String originalName = file.getOriginalFilename();
         String diretorio = uri + originalName;
         try {
