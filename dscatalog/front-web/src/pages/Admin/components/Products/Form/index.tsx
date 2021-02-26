@@ -9,12 +9,16 @@ import './styles.scss';
 import { Category } from 'core/types/Product';
 import PriceField from './PriceField';
 import ImageUpload from '../ImageUpload';
+import DescriptionField from './DescriptionField';
+import { convertToRaw, EditorState } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import { stateFromHTML } from 'draft-js-import-html';
 
 export type FormState = {
   name: string;
   price: string;
   imgUrl: string;
-  description: string;
+  description: EditorState;
   categories: Category[];
 };
 
@@ -43,12 +47,16 @@ const Form = () => {
   useEffect(() => {
     if (isEditing) {
       makeRequest({ url: `/products/${productId}` }).then(response => {
+        const contentState = stateFromHTML(response.data.description);
+        const descriptionAsEditorState = EditorState.createWithContent(
+          contentState,
+        );
         setValue('name', response.data.name);
         setValue('price', response.data.price);
-        setValue('description', response.data.description);
         setValue('categories', response.data.categories);
-
         setProductImgUrl(response.data.imgUrl);
+
+        setValue('description', descriptionAsEditorState);
       });
     }
   }, [productId, isEditing, setValue]);
@@ -60,9 +68,14 @@ const Form = () => {
       .finally(() => setIsLoadingCategories(false));
   }, []);
 
+  const getDescriptionFromEditor = (editorState: EditorState) => {
+    return draftToHtml(convertToRaw(editorState.getCurrentContent()));
+  };
+
   const onSubmit = (data: FormState) => {
     const payload = {
       ...data,
+      description: getDescriptionFromEditor(data.description),
       imgUrl: uploadedImgUrl || productImgUrl,
     };
     makePrivateRequest({
@@ -150,17 +163,10 @@ const Form = () => {
             </div>
           </div>
           <div className="col-6">
-            <textarea
-              ref={register({ required: 'Campo obrigatório' })}
-              name="description"
-              className="form-control input-base"
-              placeholder="Descrição"
-              cols={30}
-              rows={10}
-            />
+            <DescriptionField control={control} />
             {errors.description && (
               <div className="invalid-feedback d-block">
-                {errors.description.message}
+                {errors.description}
               </div>
             )}
           </div>
