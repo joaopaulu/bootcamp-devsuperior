@@ -22,7 +22,7 @@ const List = () => {
       orderBy: 'id',
     };
     setIsLoading(true);
-    makeRequest({ url: '/users', params })
+    makePrivateRequest({ url: '/users', params })
       .then(response => setUsersResponse(response.data))
       .finally(() => setIsLoading(false));
   }, [activePage]);

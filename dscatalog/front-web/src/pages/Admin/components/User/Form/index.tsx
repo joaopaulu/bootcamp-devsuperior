@@ -2,46 +2,46 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import BaseForm from '../../BaseForm';
-import { makePrivateRequest, makeRequest } from 'core/utils/request';
+import { makePrivateRequest } from 'core/utils/request';
 import { useHistory, useParams } from 'react-router-dom';
 import './styles.scss';
 
 export type FormState = {
-  name: string;
+  firstName: string;
 };
 
 type ParamsType = {
-  categoryId: string;
+  userId: string;
 };
 
 const Form = () => {
   const { register, handleSubmit, errors, setValue } = useForm<FormState>();
   const history = useHistory();
-  const { categoryId } = useParams<ParamsType>();
+  const { userId } = useParams<ParamsType>();
 
-  const isEditing = categoryId !== 'create';
-  const formTitle = isEditing ? 'editar produto' : 'cadastrar uma categoria';
+  const isEditing = userId !== 'create';
+  const formTitle = isEditing ? 'editar usuário' : 'cadastrar um Usuário';
 
   useEffect(() => {
     if (isEditing) {
-      makeRequest({ url: `/categories/${categoryId}` }).then(response => {
-        setValue('name', response.data.name);
+      makePrivateRequest({ url: `/users/${userId}` }).then(response => {
+        setValue('firstName', response.data.firstName);
       });
     }
-  }, [categoryId, isEditing, setValue]);
+  }, [userId, isEditing, setValue]);
 
   const onSubmit = (data: FormState) => {
     makePrivateRequest({
-      url: isEditing ? `/categories/${categoryId}` : '/categories',
+      url: isEditing ? `/users/${userId}` : '/users',
       method: isEditing ? 'PUT' : 'POST',
       data,
     })
       .then(() => {
-        toast.info('Categoria salva com sucesso!');
-        history.push('/admin/categories');
+        toast.info('Usuário salvo com sucesso!');
+        history.push('/admin/users');
       })
       .catch(() => {
-        toast.error('Erro ao salvar categoria!');
+        toast.error('Erro ao salvar usuário!');
       });
   };
 
@@ -61,12 +61,14 @@ const Form = () => {
             },
           })}
           type="text"
-          name="name"
+          name="firstName"
           className="form-control input-base"
-          placeholder="Nome do Produto"
+          placeholder="Nome do Usuário"
         />
-        {errors.name && (
-          <div className="invalid-feedback d-block">{errors.name.message}</div>
+        {errors.firstName && (
+          <div className="invalid-feedback d-block">
+            {errors.firstName.message}
+          </div>
         )}
       </BaseForm>
     </form>
