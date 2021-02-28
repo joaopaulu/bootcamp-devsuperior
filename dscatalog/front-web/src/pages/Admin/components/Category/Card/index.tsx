@@ -11,7 +11,7 @@ type Props = {
 const Card = ({ category, onRemove }: Props) => {
   return (
     <div className="card-base category-card-admin">
-      <div className="col-4 py-3">
+      <div className="col-6 py-3">
         <h3 className="card-content category-card-name-admin">
           {category.name}
         </h3>
