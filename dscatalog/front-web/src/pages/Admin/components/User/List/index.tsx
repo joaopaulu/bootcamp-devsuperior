@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { UsersResponse } from 'core/types/User';
-import { makePrivateRequest, makeRequest } from 'core/utils/request';
+import { makePrivateRequest } from 'core/utils/request';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Pagination from 'core/components/Pagination';
