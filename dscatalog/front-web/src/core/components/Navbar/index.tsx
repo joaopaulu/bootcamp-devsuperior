@@ -1,4 +1,8 @@
-import { getAccessTokenDecoded, logout } from 'core/utils/auth';
+import {
+  getAccessTokenDecoded,
+  logout,
+  isAuthenticated,
+} from 'core/utils/auth';
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { ReactComponent as MenuIcon } from 'core/assets/images/menu.svg';
@@ -67,7 +71,7 @@ const Navbar = () => {
           </li>
           {drawerActive && (
             <li>
-              {currentUser && (
+              {isAuthenticated() && (
                 <a
                   href="#logout"
                   className="nav-link active d-inline"
@@ -84,7 +88,7 @@ const Navbar = () => {
 
           {drawerActive && (
             <>
-              {!currentUser && (
+              {!isAuthenticated() && (
                 <li>
                   <Link
                     className="nav-link active"
@@ -100,7 +104,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="user-info-dnone text-right">
-        {currentUser && (
+        {isAuthenticated() && (
           <>
             {currentUser}
             <a
@@ -115,7 +119,7 @@ const Navbar = () => {
             </a>
           </>
         )}
-        {!currentUser && (
+        {!isAuthenticated() && (
           <Link
             className="nav-link active"
             to="/auth/login"
