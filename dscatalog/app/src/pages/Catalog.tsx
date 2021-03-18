@@ -1,44 +1,29 @@
-import React, { useState } from 'react';
-import { ScrollView, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ScrollView, ActivityIndicator } from 'react-native';
+import { api } from '../services';
 import { ProductCard, SearchInput } from '../components';
 
-import productImg from '../assets/product.png';
 import { theme } from '../styles';
-const products = [
-  {
-    id: 1,
-    imgUrl: productImg,
-    name: 'Smartphone',
-    price: 5299.9,
-  },
-  {
-    id: 2,
-    imgUrl: productImg,
-    name: 'Computador Desktop - Intel Core i7',
-    price: 2299.9,
-  },
-  {
-    id: 3,
-    imgUrl: productImg,
-    name: 'Computador Desktop - Intel Core i7',
-    price: 2299.9,
-  },
-  {
-    id: 4,
-    imgUrl: productImg,
-    name: 'Computador Desktop - Intel Core i7',
-    price: 2299.9,
-  },
-  {
-    id: 5,
-    imgUrl: productImg,
-    name: 'Computador Desktop - Intel Core i7',
-    price: 2299.9,
-  },
-];
 
 const Catalog: React.FC = () => {
   const [search, setSearch] = useState('');
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [update, setUpdade] = useState(false);
+
+  async function fillProducts() {
+    setLoading(true);
+    const response = await api.get(
+      `/products?page=0&linesPerPage=12&direction=ASC&orderBy=name`,
+    );
+    setProducts(response.data.content);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    fillProducts();
+  }, []);
+
   const data =
     search.length > 0
       ? products.filter(product =>
@@ -53,9 +38,12 @@ const Catalog: React.FC = () => {
         search={search}
         setSearch={setSearch}
       />
-      {data.map(product => (
-        <ProductCard key={product.id} {...product} />
-      ))}
+
+      {loading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        data.map(product => <ProductCard key={product.id} {...product} />)
+      )}
     </ScrollView>
   );
 };
