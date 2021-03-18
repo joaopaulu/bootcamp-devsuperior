@@ -26,7 +26,7 @@ const Navbar = () => {
   };
   return (
     <nav className="bg-primary main-nav">
-      <Link to="/" className="nav-logo-text">
+      <Link to="#" className="nav-logo-text">
         <h4>DS Catalog</h4>
       </Link>
       <button
