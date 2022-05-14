@@ -2,7 +2,7 @@ package entities;
 
 public class Account {
 
-    public static double DEPOSIT_FEE_PERCENTAGE = 0.02;
+    public static final double DEPOSIT_FEE_PERCENTAGE = 0.02;
 
     private Long id;
     private Double balance;
